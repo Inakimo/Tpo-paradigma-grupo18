@@ -1,22 +1,25 @@
 package modelo;
 
-public final class Vehiculo { // final para asegurar inmutabilidad
-    private final String patente;
-    private final String marca;
-    private final String modelo;
-    private final int anio;
-    private final Cliente dueno; // Relación 1
+public class Vehiculo {
+    private String modelo;
+    private String marca;
+    private int anio;
 
-    public Vehiculo(String patente, String marca, String modelo, int anio, Cliente dueno) {
-        this.patente = patente;
-        this.marca = marca;
+    public Vehiculo(String modelo, String marca, int anio) {
         this.modelo = modelo;
+        this.marca = marca;
         this.anio = anio;
-        this.dueno = dueno;
     }
 
-    // Solo getters
-    public String getPatente() { return patente; }
-    public int getAnio() { return anio; }
-    // ...
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
 }

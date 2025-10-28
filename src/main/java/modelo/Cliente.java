@@ -1,13 +1,19 @@
 package modelo;
 
-public class Cliente extends Persona {
-    private List<Vehiculo> vehiculos; // Relación 1..* (Agregación)
-    private List<Servicio> historialServicios;
+public class Cliente {
+    private int id;
+    private String nombre;
 
-    // Constructor, getters y setters...
+    public Cliente(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
-    @Override
-    public String generarContacto() {
-        return "Cliente: " + nombre + " | Teléfono: " + telefono;
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

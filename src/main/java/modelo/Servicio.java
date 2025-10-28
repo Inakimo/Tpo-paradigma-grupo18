@@ -1,16 +1,39 @@
 package modelo;
 
-public abstract class Servicio implements ICalculable { // Implementa la Interfaz
-    protected int idServicio;
-    protected String descripcion;
+public class Servicio {
+    private int idServicio;
+    private String descripcion;
     protected double costoBase;
 
-    // Constructor, getters y setters...
+    public Servicio() {
+    }
 
-    // El método abstracto se define en la interfaz, pero aquí se detalla la intención
-    // Se cumple el contrato de ICalculable
-    // public abstract double calcularCostoTotal(); (Ya está en la interfaz)
+    public Servicio(int idServicio, String descripcion, double costoBase) {
+        this.idServicio = idServicio;
+        this.descripcion = descripcion;
+        this.costoBase = costoBase;
+    }
 
-    // Método para el Polimorfismo
-    public abstract String generarResumen();
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public double getCostoBase() {
+        return costoBase;
+    }
+
+    /**
+     * Método polimórfico para calcular el costo total del servicio, que será
+     * sobreescrito en las clases hijas como `ServicioPintura` y `ServicioReparacion`.
+     */
+    public double calcularCostoTotal() {
+        return costoBase;
+    }
+
+    /**
+     * Método polimórfico para generar un resumen, sobreescrito por las clases hijas.
+     */
+    public String generarResumen() {
+        return "Servicio general: " + descripcion;
+    }
 }
