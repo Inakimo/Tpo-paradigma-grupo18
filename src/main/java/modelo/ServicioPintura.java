@@ -7,7 +7,7 @@ public class ServicioPintura extends Servicio {
 
     public ServicioPintura(int idServicio, String descripcion, double costoBase,
                            String codigoColor, String tipoPintura, double superficieM2) {
-        super(idServicio, descripcion, costoBase);
+        super(descripcion, costoBase);
         this.codigoColor = codigoColor;
         this.tipoPintura = tipoPintura;
         this.superficieM2 = superficieM2;

@@ -1,19 +1,40 @@
 package modelo;
 
-public class Cliente {
+public class Cliente extends Persona {
     private int id;
-    private String nombre;
+    private String direccion;
+    private String telefono;
 
     public Cliente(int id, String nombre) {
+        super(nombre, correoElectronico);
         this.id = id;
-        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    @Override
+    public String generarContacto() {
+        return "Cliente: " + getNombre() + " | ID: " + id + " | Correo: " + getCorreoElectronico() +
+                " | Teléfono: " + telefono + " | Dirección: " + direccion;
     }
 }

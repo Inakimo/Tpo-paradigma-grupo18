@@ -8,7 +8,7 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Servicio(int idServicio, String descripcion, double costoBase) {
+    public Servicio(String descripcion, double costoBase) {
         this.idServicio = idServicio;
         this.descripcion = descripcion;
         this.costoBase = costoBase;
