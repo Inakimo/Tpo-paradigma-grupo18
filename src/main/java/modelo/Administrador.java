@@ -1,3 +1,5 @@
+package modelo;
+
 public class Administrador extends Persona {
     private String usuario;
     private String contrasena;

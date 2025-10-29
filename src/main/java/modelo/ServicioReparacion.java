@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 public class ServicioReparacion extends Servicio { // Usado como la Mano de Obra general
     private double horasTrabajo;
     private double costoPorHora;

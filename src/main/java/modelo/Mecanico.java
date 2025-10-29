@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 public class Mecanico extends Persona {
     private double tarifaHora;
     private String especialidad;

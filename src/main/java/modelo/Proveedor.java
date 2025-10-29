@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 public class Proveedor {
     private int idProveedor;
     private String nombreProveedor;
