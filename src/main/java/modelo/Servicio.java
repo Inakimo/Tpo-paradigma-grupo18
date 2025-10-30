@@ -8,11 +8,19 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Servicio(String descripcion, double costoBase) {
-        this.idServicio = idServicio;
+    // Constructor corregido y mejorado
+    public Servicio(int idServicio, String descripcion, double costoBase) {
+        this.idServicio = idServicio; // Asignación correcta
         this.descripcion = descripcion;
         this.costoBase = costoBase;
     }
+
+    // Dejamos el constructor que tenías en ServicioPintura por compatibilidad
+    public Servicio(String descripcion, double costoBase) {
+        this.descripcion = descripcion;
+        this.costoBase = costoBase;
+    }
+
 
     public String getDescripcion() {
         return descripcion;
@@ -22,9 +30,13 @@ public class Servicio {
         return costoBase;
     }
 
+    public int getIdServicio() {
+        return idServicio;
+    }
+
     /**
      * Método polimórfico para calcular el costo total del servicio, que será
-     * sobreescrito en las clases hijas como `ServicioPintura` y `ServicioReparacion`.
+     * sobreescrito en las clases hijas.
      */
     public double calcularCostoTotal() {
         return costoBase;

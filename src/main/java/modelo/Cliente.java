@@ -5,8 +5,13 @@ public class Cliente extends Persona {
     private String direccion;
     private String telefono;
 
-    public Cliente(int id, String nombre) {
-        super(nombre, correoElectronico);
+    public Cliente(int id, String nombre){
+        super(nombre,id);
+
+    }
+
+    public Cliente(int id, String nombre, String email, String direccion, String telefono) {
+        super(nombre, email);
         this.id = id;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -30,6 +35,10 @@ public class Cliente extends Persona {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getCorreoElectronico(){
+        return "correoejemplo";
     }
 
     @Override

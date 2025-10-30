@@ -32,6 +32,7 @@ public class Administrador extends Persona {
     }
 
     private String getemail() {
+        return "";
     }
 
     public boolean validarCredenciales(String usuarioInput, String contrasenaInput) {

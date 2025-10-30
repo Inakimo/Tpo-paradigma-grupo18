@@ -43,5 +43,6 @@ public class Vehiculo {
     }
 
     public String getAnio() {
+        return "año ejemplo IMPLEMENTAR";
     }
 }

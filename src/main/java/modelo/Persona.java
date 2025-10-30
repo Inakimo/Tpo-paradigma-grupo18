@@ -17,7 +17,15 @@ public abstract class Persona {
         this.direccion = direccion;
     }
 
+    public Persona(String nombre, int id) {
+        this.nombre = nombre;
+        this.idPersona = id;
+
+    }
+
+
     public Persona(String nombre, String correoElectronico) {
+        this.nombre = nombre;
     }
 
     public int getIdPersona() {
