@@ -8,44 +8,63 @@ public class Servicio {
     public Servicio() {
     }
 
-    // Constructor corregido y mejorado
+    // Constructor completo
     public Servicio(int idServicio, String descripcion, double costoBase) {
-        this.idServicio = idServicio; // Asignación correcta
+        this.idServicio = idServicio;
         this.descripcion = descripcion;
         this.costoBase = costoBase;
     }
 
-    // Dejamos el constructor que tenías en ServicioPintura por compatibilidad
+    // Constructor sin ID (para compatibilidad)
     public Servicio(String descripcion, double costoBase) {
         this.descripcion = descripcion;
         this.costoBase = costoBase;
     }
 
+    // Getters y Setters
+    public int getIdServicio() {
+        return idServicio;
+    }
+
+    public void setIdServicio(int idServicio) {
+        this.idServicio = idServicio;
+    }
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public double getCostoBase() {
         return costoBase;
     }
 
-    public int getIdServicio() {
-        return idServicio;
+    public void setCostoBase(double costoBase) {
+        this.costoBase = costoBase;
     }
 
     /**
-     * Método polimórfico para calcular el costo total del servicio, que será
-     * sobreescrito en las clases hijas.
+     * Método polimórfico para calcular el costo total del servicio.
+     * Será sobreescrito en las clases hijas.
      */
     public double calcularCostoTotal() {
         return costoBase;
     }
 
     /**
-     * Método polimórfico para generar un resumen, sobreescrito por las clases hijas.
+     * Método polimórfico para generar un resumen.
+     * Será sobreescrito en las clases hijas.
      */
     public String generarResumen() {
-        return "Servicio general: " + descripcion;
+        return String.format("Servicio ID: %d - %s - Costo: $%.2f", 
+                           idServicio, descripcion, calcularCostoTotal());
+    }
+
+    @Override
+    public String toString() {
+        return generarResumen();
     }
 }
