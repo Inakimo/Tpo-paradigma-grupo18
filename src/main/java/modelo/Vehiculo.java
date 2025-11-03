@@ -6,12 +6,12 @@ public class Vehiculo {
     private String modelo;
     private String placa;
     private int anioFabricacion;
-    private Cliente propietario; // Relación con Cliente
+    private Cliente propietario; 
 
-    // Constructor completo
+   
     public Vehiculo(int idVehiculo, String marca, String modelo, String placa, 
                     int anioFabricacion, Cliente propietario) {
-        // Validaciones
+       
         if (marca == null || marca.trim().isEmpty()) {
             throw new IllegalArgumentException("La marca no puede estar vacía");
         }
@@ -35,17 +35,17 @@ public class Vehiculo {
         this.anioFabricacion = anioFabricacion;
         this.propietario = propietario;
         
-        // Registrar el vehículo en la lista del cliente
+      
         propietario.agregarVehiculo(this);
     }
 
-    // Constructor sin ID (para cuando se genera automáticamente)
+  
     public Vehiculo(String marca, String modelo, String placa, 
                     int anioFabricacion, Cliente propietario) {
         this(0, marca, modelo, placa, anioFabricacion, propietario);
     }
 
-    // Getters
+   
     public int getIdVehiculo() {
         return idVehiculo;
     }
@@ -107,40 +107,31 @@ public class Vehiculo {
             throw new IllegalArgumentException("El vehículo debe tener un propietario");
         }
         
-        // Remover de la lista del propietario anterior si existe
+       
         if (this.propietario != null) {
             this.propietario.removerVehiculo(this);
         }
-        
-        // Asignar nuevo propietario y agregarlo a su lista
+       
         this.propietario = propietario;
         propietario.agregarVehiculo(this);
     }
 
-    /**
-     * Obtiene el año de fabricación como String
-     */
+    
     public String getAnio() {
         return String.valueOf(anioFabricacion);
     }
 
-    /**
-     * Calcula la antigüedad del vehículo en años
-     */
+    
     public int calcularAntiguedad() {
         return java.time.Year.now().getValue() - anioFabricacion;
     }
 
-    /**
-     * Verifica si el vehículo es considerado antiguo (más de 15 años)
-     */
+    
     public boolean esAntiguo() {
         return calcularAntiguedad() > 15;
     }
 
-    /**
-     * Obtiene información completa del vehículo incluyendo propietario
-     */
+ 
     public String obtenerInformacionCompleta() {
         return toString() + "\nPropietario: " + propietario.getNombre() + 
                " (ID: " + propietario.getId() + ")";
@@ -157,7 +148,7 @@ public class Vehiculo {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Vehiculo vehiculo = (Vehiculo) obj;
-        return placa.equals(vehiculo.placa); // Dos vehículos son iguales si tienen la misma placa
+        return placa.equals(vehiculo.placa); 
     }
 
     @Override

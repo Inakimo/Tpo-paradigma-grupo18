@@ -1,0 +1,20 @@
+[
+  {
+    "idMecanico": 2,
+    "especialidad": "Electricidad y Electrónica",
+    "disponible": false,
+    "idPersona": 0,
+    "nombre": "Laura Martínez",
+    "telefono": "11-3456-7890",
+    "email": "laura.martinez@taller.com"
+  },
+  {
+    "idMecanico": 3,
+    "especialidad": "Frenos y Suspensión",
+    "disponible": false,
+    "idPersona": 0,
+    "nombre": "Diego Fernández",
+    "telefono": "11-4567-8901",
+    "email": "diego.fernandez@taller.com"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "idRepuesto": 1,
+    "codigo": "ACE-001",
+    "nombre": "Aceite Sintético 5W-30",
+    "descripcion": "Aceite motor sintético premium",
+    "precioUnitario": 4500.0,
+    "stockDisponible": 24
+  },
+  {
+    "idRepuesto": 2,
+    "codigo": "FIL-002",
+    "nombre": "Filtro de Aceite",
+    "descripcion": "Filtro de aceite universal",
+    "precioUnitario": 1200.0,
+    "stockDisponible": 28
+  },
+  {
+    "idRepuesto": 3,
+    "codigo": "FRE-003",
+    "nombre": "Pastillas de Freno Delanteras",
+    "descripcion": "Pastillas cerámicas alta performance",
+    "precioUnitario": 8500.0,
+    "stockDisponible": 15
+  },
+  {
+    "idRepuesto": 4,
+    "codigo": "BAT-004",
+    "nombre": "Batería 12V 60Ah",
+    "descripcion": "Batería libre de mantenimiento",
+    "precioUnitario": 25000.0,
+    "stockDisponible": 8
+  },
+  {
+    "idRepuesto": 5,
+    "codigo": "NEU-005",
+    "nombre": "Neumático 185/65 R15",
+    "descripcion": "Neumático radial touring",
+    "precioUnitario": 18000.0,
+    "stockDisponible": 20
+  }
+]

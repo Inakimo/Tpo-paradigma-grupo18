@@ -1,29 +1,31 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Mecanico extends Persona {
-    private double tarifaHora;
+    private int idMecanico;
     private String especialidad;
-    private List<OrdenDeTrabajo> ordenesAsignadas;
+    // telefono está heredado de Persona
+    private boolean disponible;
 
-    public Mecanico(String nombre, String correoElectronico, double tarifaHora, String especialidad) {
-        super(nombre, correoElectronico);
-        this.tarifaHora = tarifaHora;
+  
+    public Mecanico(int idMecanico, String nombre, String email, String especialidad, String telefono) {
+        super(nombre, email);
+        this.idMecanico = idMecanico;
         this.especialidad = especialidad;
-        this.ordenesAsignadas = new ArrayList<>();
+        this.telefono = telefono;  // Usa el campo heredado
+        this.disponible = true; 
     }
 
-    public double getTarifaHora() {
-        return tarifaHora;
+    //
+    public Mecanico(int idMecanico, String nombre, String especialidad) {
+        super(nombre, "");
+        this.idMecanico = idMecanico;
+        this.especialidad = especialidad;
+        this.disponible = true;
     }
 
-    public void setTarifaHora(double tarifaHora) {
-        if (tarifaHora < 0) {
-            throw new IllegalArgumentException("La tarifa no puede ser negativa.");
-        }
-        this.tarifaHora = tarifaHora;
+    // Getters y Setters
+    public int getIdMecanico() {
+        return idMecanico;
     }
 
     public String getEspecialidad() {
@@ -34,18 +36,38 @@ public class Mecanico extends Persona {
         this.especialidad = especialidad;
     }
 
-    public List<OrdenDeTrabajo> getOrdenesAsignadas() {
-        return ordenesAsignadas;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void asignarOrden(OrdenDeTrabajo orden) {
-        if (!ordenesAsignadas.contains(orden)) {
-            ordenesAsignadas.add(orden);
-        }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     @Override
     public String generarContacto() {
-        return "Mecánico: " + getNombre() + " | Especialidad: " + especialidad + " | Tarifa: $" + tarifaHora;
+        return String.format("Mecánico: %s | ID: %d | Especialidad: %s | Tel: %s | Estado: %s",
+                getNombre(), idMecanico, especialidad,
+                telefono != null ? telefono : "N/A",
+                disponible ? "Disponible" : "Ocupado");
+    }
+
+    public String generarResumen() {
+        return String.format("ID: %d | %s | %s | %s",
+                idMecanico, getNombre(), especialidad,
+                disponible ? "✓ Disponible" : "⚠ Ocupado");
+    }
+
+    @Override
+    public String toString() {
+        return generarResumen();
     }
 }

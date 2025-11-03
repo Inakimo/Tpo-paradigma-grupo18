@@ -12,7 +12,7 @@ public class Factura {
 
     public Factura(int idFactura, int idCliente, double subtotal, double impuestos) {
         this.idFactura = idFactura;
-        this.fecha = new Date(); // Fecha actual
+        this.fecha = new Date(); 
         this.idCliente = idCliente;
         this.subtotal = subtotal;
         this.impuestos = impuestos;

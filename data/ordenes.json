@@ -1,0 +1,21 @@
+[
+  {
+    "idOrden": 0,
+    "vehiculoId": 0,
+    "mecanicoId": 2,
+    "estado": "PENDIENTE",
+    "observaciones": "",
+    "fechaIngreso": "2025-11-03T16:23:24.937105500",
+    "servicios": [
+      {
+        "tipo": "GENERICO",
+        "idServicio": 0,
+        "descripcion": "pintura",
+        "costoBase": 100.0
+      }
+    ],
+    "repuestos": {
+      "2": 2
+    }
+  }
+]

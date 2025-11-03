@@ -1,0 +1,10 @@
+[
+  {
+    "idVehiculo": 0,
+    "marca": "toyota",
+    "modelo": "corolla",
+    "placa": "abc 123",
+    "anioFabricacion": 2021,
+    "propietarioId": 1
+  }
+]

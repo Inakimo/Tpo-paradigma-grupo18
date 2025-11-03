@@ -7,7 +7,7 @@ public class ServicioDiagnostico extends Servicio {
     private String resultado;
     private boolean requiereAprobacion;
 
-    // Constructor completo
+  
     public ServicioDiagnostico(int idServicio, String descripcion, double costoBase,
                                NivelComplejidad nivel, String resultado, boolean requiereAprobacion) {
         super(idServicio, descripcion, costoBase);
@@ -16,7 +16,7 @@ public class ServicioDiagnostico extends Servicio {
         this.requiereAprobacion = requiereAprobacion;
     }
 
-    // Constructor sin resultado (para cuando aún no se ha realizado el diagnóstico)
+    
     public ServicioDiagnostico(int idServicio, String descripcion, double costoBase,
                                NivelComplejidad nivel, boolean requiereAprobacion) {
         super(idServicio, descripcion, costoBase);
@@ -25,8 +25,12 @@ public class ServicioDiagnostico extends Servicio {
         this.requiereAprobacion = requiereAprobacion;
     }
 
-    // Getters y Setters
+  
     public NivelComplejidad getNivel() {
+        return nivel;
+    }
+
+    public NivelComplejidad getNivelComplejidad() {
         return nivel;
     }
 
@@ -54,11 +58,11 @@ public class ServicioDiagnostico extends Servicio {
     public double calcularCostoTotal() {
         double recargo = 0;
         if (this.nivel == NivelComplejidad.ALTO) {
-            recargo = this.costoBase * 0.50; // 50% de recargo por complejidad
+            recargo = this.costoBase * 0.50; 
         } else if (this.nivel == NivelComplejidad.MEDIO) {
-            recargo = this.costoBase * 0.25; // 25% de recargo
+            recargo = this.costoBase * 0.25; 
         }
-        // BAJO no tiene recargo
+      
         return this.costoBase + recargo;
     }
 
@@ -69,9 +73,7 @@ public class ServicioDiagnostico extends Servicio {
                 nivel, resultado, calcularCostoTotal(), aprobacion);
     }
 
-    /**
-     * Método de negocio: Verifica si el diagnóstico está completado
-     */
+    
     public boolean estaCompletado() {
         return resultado != null && !resultado.equals("Pendiente");
     }

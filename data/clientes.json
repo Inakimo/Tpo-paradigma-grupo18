@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Juan Pérez",
+    "email": "juan.perez@email.com",
+    "telefono": "11-4567-8901",
+    "direccion": "Av. Corrientes 1234, CABA"
+  },
+  {
+    "id": 2,
+    "nombre": "María García",
+    "email": "maria.garcia@email.com",
+    "telefono": "11-5678-9012",
+    "direccion": "Calle Florida 567, CABA"
+  }
+]

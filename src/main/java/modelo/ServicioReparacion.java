@@ -4,12 +4,12 @@ public class ServicioReparacion extends Servicio {
     private double horasTrabajo;
     private double costoPorHora;
 
-    // Constructor completo
+ 
     public ServicioReparacion(int idServicio, String descripcion, double costoBase,
                               double horasTrabajo, double costoPorHora) {
         super(idServicio, descripcion, costoBase);
 
-        // Validaciones
+      
         if (horasTrabajo < 0) {
             throw new IllegalArgumentException("Las horas de trabajo no pueden ser negativas");
         }
@@ -21,9 +21,9 @@ public class ServicioReparacion extends Servicio {
         this.costoPorHora = costoPorHora;
     }
 
-    // Getters y Setters
+ 
     public double getHorasTrabajo() {
-        return horasTrabajo;
+        return this.horasTrabajo;
     }
 
     public void setHorasTrabajo(double horasTrabajo) {
@@ -34,7 +34,7 @@ public class ServicioReparacion extends Servicio {
     }
 
     public double getCostoPorHora() {
-        return costoPorHora;
+        return this.costoPorHora;
     }
 
     public void setCostoPorHora(double costoPorHora) {
@@ -46,7 +46,7 @@ public class ServicioReparacion extends Servicio {
 
     @Override
     public double calcularCostoTotal() {
-        // Costo base (repuestos/materiales) + Costo de mano de obra
+     
         return this.costoBase + (this.horasTrabajo * this.costoPorHora);
     }
 
@@ -56,32 +56,22 @@ public class ServicioReparacion extends Servicio {
                 horasTrabajo, costoPorHora, calcularCostoTotal());
     }
 
-    /**
-     * Calcula solo el costo de mano de obra (sin materiales)
-     */
+  
     public double calcularCostoManoDeObra() {
         return this.horasTrabajo * this.costoPorHora;
     }
 
-    /**
-     * Calcula el costo de materiales/repuestos (costoBase)
-     */
+ 
     public double calcularCostoMateriales() {
         return this.costoBase;
     }
 
-    /**
-     * Método de negocio: Verifica si la reparación es extensa
-     * (más de 8 horas de trabajo)
-     */
+   
     public boolean esReparacionExtensa() {
         return this.horasTrabajo > 8.0;
     }
 
-    /**
-     * Calcula el tiempo estimado de finalización en días
-     * Asumiendo 8 horas de trabajo por día
-     */
+  
     public int calcularDiasEstimados() {
         return (int) Math.ceil(this.horasTrabajo / 8.0);
     }
