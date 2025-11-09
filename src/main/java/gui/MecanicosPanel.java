@@ -1,25 +1,12 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import modelo.Mecanico;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
-import modelo.Mecanico;
 
 public class MecanicosPanel extends JPanel {
     private JTable tablaMecanicos;
@@ -27,7 +14,6 @@ public class MecanicosPanel extends JPanel {
     private List<Mecanico> mecanicos;
     private int siguienteId = 1;
 
-    // Componentes del formulario
     private JTextField txtNombre;
     private JTextField txtEmail;
     private JTextField txtEspecialidad;
@@ -42,15 +28,14 @@ public class MecanicosPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel superior con formulario
+
         JPanel panelFormulario = crearPanelFormulario();
         add(panelFormulario, BorderLayout.NORTH);
 
-        // Panel central con tabla
         JPanel panelTabla = crearPanelTabla();
         add(panelTabla, BorderLayout.CENTER);
 
-        // Panel inferior con botones
+
         JPanel panelBotones = crearPanelBotones();
         add(panelBotones, BorderLayout.SOUTH);
     }

@@ -1,25 +1,12 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import modelo.Cliente;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
-import modelo.Cliente;
 
 public class ClientesPanel extends JPanel {
     private JTable tablaClientes;
@@ -27,7 +14,6 @@ public class ClientesPanel extends JPanel {
     private List<Cliente> clientes;
     private int siguienteId = 1;
 
-    // Componentes del formulario
     private JTextField txtNombre;
     private JTextField txtEmail;
     private JTextField txtDireccion;
@@ -42,15 +28,13 @@ public class ClientesPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel superior con formulario
+
         JPanel panelFormulario = crearPanelFormulario();
         add(panelFormulario, BorderLayout.NORTH);
 
-        // Panel central con tabla
         JPanel panelTabla = crearPanelTabla();
         add(panelTabla, BorderLayout.CENTER);
 
-        // Panel inferior con botones
         JPanel panelBotones = crearPanelBotones();
         add(panelBotones, BorderLayout.SOUTH);
     }
@@ -227,9 +211,7 @@ public class ClientesPanel extends JPanel {
     }
 
     private void actualizarTabla() {
-        // Limpiar tabla
         modeloTabla.setRowCount(0);
-        // Recargar todos los clientes
         for (Cliente c : clientes) {
             Object[] fila = {
                 c.getId(),
@@ -250,7 +232,6 @@ public class ClientesPanel extends JPanel {
         this.clientes.clear();
         this.clientes.addAll(clientes);
         actualizarTabla();
-        // Actualizar el siguiente ID
         if (!clientes.isEmpty()) {
             int maxId = 0;
             for (Cliente c : clientes) {

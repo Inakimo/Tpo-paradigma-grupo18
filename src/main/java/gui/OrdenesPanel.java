@@ -1,31 +1,13 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import enums.EstadoOrden;
+import modelo.*;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
-import enums.EstadoOrden;
-import modelo.Mecanico;
-import modelo.OrdenDeTrabajo;
-import modelo.Repuesto;
-import modelo.Servicio;
-import modelo.Vehiculo;
 
 public class OrdenesPanel extends JPanel {
     private JTable tablaOrdenes;
@@ -53,11 +35,9 @@ public class OrdenesPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel central con tabla
         JPanel panelTabla = crearPanelTabla();
         add(panelTabla, BorderLayout.CENTER);
 
-        // Panel inferior con botones
         JPanel panelBotones = crearPanelBotones();
         add(panelBotones, BorderLayout.SOUTH);
     }
@@ -121,7 +101,6 @@ public class OrdenesPanel extends JPanel {
             return;
         }
 
-        // Diálogo para seleccionar vehículo
         List<Vehiculo> vehiculos = vehiculosPanel.getVehiculos();
         String[] opcionesVehiculos = new String[vehiculos.size()];
         for (int i = 0; i < vehiculos.size(); i++) {
@@ -202,8 +181,7 @@ public class OrdenesPanel extends JPanel {
         }
 
         Mecanico mecanico = disponibles.get(indiceMecanico);
-        
-        // Liberar mecánico anterior si existe
+
         if (orden.getMecanicoAsignado() != null) {
             orden.getMecanicoAsignado().setDisponible(true);
         }
@@ -405,8 +383,7 @@ public class OrdenesPanel extends JPanel {
     public void setOrdenes(List<OrdenDeTrabajo> ordenes) {
         this.ordenes.clear();
         this.ordenes.addAll(ordenes);
-        
-        // Actualizar el siguiente ID basado en el máximo ID existente
+
         int maxId = 0;
         for (OrdenDeTrabajo o : ordenes) {
             if (o.getIdOrden() > maxId) {

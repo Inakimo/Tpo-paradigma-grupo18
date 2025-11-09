@@ -1,36 +1,15 @@
 package persistencia;
 
+import com.google.gson.*;
+import modelo.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
-import modelo.Cliente;
-import modelo.Mecanico;
-import modelo.OrdenDeTrabajo;
-import modelo.Repuesto;
-import modelo.Servicio;
-import modelo.Vehiculo;
-
-/**
- * Gestor centralizado de persistencia usando archivos JSON
- * Maneja la carga y guardado de todas las entidades del sistema
- */
 public class PersistenciaManager {
     private static final String DATA_DIR = "data";
     private static final String CLIENTES_FILE = DATA_DIR + "/clientes.json";
@@ -43,13 +22,11 @@ public class PersistenciaManager {
     private final Gson gson;
 
     public PersistenciaManager() {
-        // Configurar Gson con adaptadores personalizados para LocalDateTime
         this.gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
-        
-        // Crear directorio de datos si no existe
+
         try {
             Files.createDirectories(Paths.get(DATA_DIR));
         } catch (IOException e) {
@@ -57,10 +34,7 @@ public class PersistenciaManager {
         }
     }
 
-    // ========== GUARDAR DATOS ==========
-
     public void guardarClientes(List<Cliente> clientes) {
-        // Convertir a DTO para evitar referencia circular con vehículos
         List<ClienteDTO> clientesDTO = new ArrayList<>();
         for (Cliente c : clientes) {
             clientesDTO.add(new ClienteDTO(c));
@@ -69,7 +43,6 @@ public class PersistenciaManager {
     }
 
     public void guardarVehiculos(List<Vehiculo> vehiculos) {
-        // Convertir a formato serializable (solo referencias a clientes por ID)
         List<VehiculoDTO> vehiculosDTO = new ArrayList<>();
         for (Vehiculo v : vehiculos) {
             vehiculosDTO.add(new VehiculoDTO(v));
@@ -104,8 +77,6 @@ public class PersistenciaManager {
         contadores.put("servicioIdCounter", servicioId);
         guardarJSON(CONTADORES_FILE, contadores);
     }
-
-    // ========== CARGAR DATOS ==========
 
     public List<Cliente> cargarClientes() {
         try {
@@ -204,8 +175,6 @@ public class PersistenciaManager {
         }
     }
 
-    // ========== MÉTODOS AUXILIARES ==========
-
     private void guardarJSON(String archivo, Object datos) {
         try {
             String json = gson.toJson(datos);
@@ -237,11 +206,6 @@ public class PersistenciaManager {
         return contadores;
     }
 
-    // ========== CLASES DTO (Data Transfer Object) ==========
-
-    // ========== CLASES DTO (Data Transfer Objects) ==========
-    // Para evitar referencias circulares en JSON
-    
     private static class ClienteDTO {
         int id;
         String nombre;
@@ -255,7 +219,6 @@ public class PersistenciaManager {
             this.email = c.getCorreoElectronico();
             this.telefono = c.getTelefono();
             this.direccion = c.getDireccion();
-            // No incluimos la lista de vehículos para evitar referencia circular
         }
     }
 
@@ -297,14 +260,12 @@ public class PersistenciaManager {
             this.observaciones = orden.getObservaciones();
             this.fechaIngreso = orden.getFechaDeIngreso();
             this.fechaEntrega = orden.getFechaDeEntrega();
-            
-            // Servicios
+
             this.servicios = new ArrayList<>();
             for (Servicio s : orden.getListaServicios()) {
                 this.servicios.add(new ServicioDTO(s));
             }
-            
-            // Repuestos
+
             this.repuestos = new HashMap<>();
             for (Map.Entry<Repuesto, Integer> entry : orden.getRepuestosUtilizados().entrySet()) {
                 this.repuestos.put(entry.getKey().getIdRepuesto(), entry.getValue());
@@ -313,7 +274,6 @@ public class PersistenciaManager {
 
         OrdenDeTrabajo toOrden(List<Vehiculo> vehiculos, List<Mecanico> mecanicos, 
                                List<Repuesto> repuestos) {
-            // Buscar vehículo
             Vehiculo vehiculo = null;
             for (Vehiculo v : vehiculos) {
                 if (v.getIdVehiculo() == vehiculoId) {
@@ -323,20 +283,15 @@ public class PersistenciaManager {
             }
             if (vehiculo == null) return null;
 
-            // Crear orden
             OrdenDeTrabajo orden = new OrdenDeTrabajo(idOrden, vehiculo, observaciones);
-            
-            // Restaurar estado y fechas
             try {
                 orden.setEstado(enums.EstadoOrden.valueOf(estado));
             } catch (Exception e) {
-                // Estado inválido, mantener PENDIENTE
             }
             if (fechaEntrega != null) {
                 orden.setFechaDeEntrega(fechaEntrega);
             }
-            
-            // Asignar mecánico
+
             if (mecanicoId != null) {
                 for (Mecanico m : mecanicos) {
                     if (m.getIdMecanico() == mecanicoId) {
@@ -345,30 +300,24 @@ public class PersistenciaManager {
                     }
                 }
             }
-            
-            // Agregar servicios
+
             for (ServicioDTO sDto : servicios) {
                 Servicio servicio = sDto.toServicio();
                 if (servicio != null) {
                     try {
                         orden.agregarServicio(servicio);
                     } catch (Exception e) {
-                        // Ignorar si no se puede agregar
                     }
                 }
             }
-            
-            // Restaurar repuestos
+
             if (this.repuestos != null) {
                 for (Map.Entry<Integer, Integer> entry : this.repuestos.entrySet()) {
                     int repuestoId = entry.getKey();
                     int cantidad = entry.getValue();
-                    
-                    // Buscar el repuesto por ID
+
                     for (Repuesto rep : repuestos) {
                         if (rep.getIdRepuesto() == repuestoId) {
-                            // Restaurar el repuesto SIN afectar el stock
-                            // (el stock ya fue reducido cuando se agregó originalmente)
                             orden.restaurarRepuesto(rep, cantidad);
                             break;
                         }
@@ -385,7 +334,6 @@ public class PersistenciaManager {
         int idServicio;
         String descripcion;
         double costoBase;
-        // Campos específicos
         String nivelComplejidad;
         String tipoMantenimiento;
         Integer kilometraje;
@@ -417,7 +365,6 @@ public class PersistenciaManager {
                 this.superficie = sp.getSuperficie();
             } else if (s instanceof modelo.ServicioReparacion sr) {
                 this.tipo = "REPARACION";
-                // Usar reflection para evitar problemas de compilación
                 try {
                     this.horasTrabajo = (double) sr.getClass().getMethod("getHorasTrabajo").invoke(sr);
                     this.costoPorHora = (double) sr.getClass().getMethod("getCostoPorHora").invoke(sr);
@@ -454,7 +401,6 @@ public class PersistenciaManager {
         }
     }
 
-    // Adaptador para LocalDateTime
     private static class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
         @Override
         public JsonElement serialize(LocalDateTime dateTime, java.lang.reflect.Type type, JsonSerializationContext context) {

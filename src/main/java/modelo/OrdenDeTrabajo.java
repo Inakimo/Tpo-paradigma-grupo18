@@ -1,13 +1,13 @@
 package modelo;
 
+import enums.EstadoOrden;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import enums.EstadoOrden;
 
 public class OrdenDeTrabajo {
     private int idOrden;
@@ -95,7 +95,6 @@ public class OrdenDeTrabajo {
     }
 
     public List<Servicio> getListaServicios() {
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -113,7 +112,6 @@ public class OrdenDeTrabajo {
             throw new IllegalStateException("No se pueden agregar servicios a una orden " + estado);
         }
 
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -125,8 +123,6 @@ public class OrdenDeTrabajo {
         if (estado == EstadoOrden.ENTREGADA || estado == EstadoOrden.CANCELADA) {
             throw new IllegalStateException("No se pueden remover servicios de una orden " + estado);
         }
-
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -136,7 +132,6 @@ public class OrdenDeTrabajo {
 
     
     public int getCantidadServicios() {
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -145,7 +140,6 @@ public class OrdenDeTrabajo {
 
     
     public boolean tieneServicios() {
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -154,7 +148,6 @@ public class OrdenDeTrabajo {
 
  
     public Map<Repuesto, Integer> getRepuestosUtilizados() {
-        // Inicializar el mapa si es null (puede ocurrir tras deserialización JSON)
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
@@ -172,7 +165,6 @@ public class OrdenDeTrabajo {
             throw new IllegalStateException("No se pueden agregar repuestos a una orden " + estado);
         }
 
-        // Inicializar el mapa si es null (puede ocurrir tras deserialización JSON)
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
@@ -190,21 +182,15 @@ public class OrdenDeTrabajo {
         return true;
     }
     
-    /**
-     * Restaura un repuesto en la orden sin afectar el stock.
-     * Este método es usado internamente por el sistema de persistencia.
-     */
+
     public void restaurarRepuesto(Repuesto repuesto, int cantidad) {
         if (repuesto == null || cantidad <= 0) {
             return;
         }
-        
-        // Inicializar el mapa si es null
+
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
-        
-        // Simplemente agregar al mapa sin verificar ni reducir stock
         repuestosUtilizados.put(repuesto, cantidad);
     }
 
@@ -214,7 +200,6 @@ public class OrdenDeTrabajo {
             throw new IllegalStateException("No se pueden remover repuestos de una orden " + estado);
         }
 
-        // Inicializar el mapa si es null (puede ocurrir tras deserialización JSON)
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
@@ -229,7 +214,6 @@ public class OrdenDeTrabajo {
 
    
     public int getCantidadRepuesto(Repuesto repuesto) {
-        // Inicializar el mapa si es null (puede ocurrir tras deserialización JSON)
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
@@ -238,7 +222,6 @@ public class OrdenDeTrabajo {
 
   
     public boolean tieneRepuestos() {
-        // Inicializar el mapa si es null (puede ocurrir tras deserialización JSON)
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
@@ -248,21 +231,18 @@ public class OrdenDeTrabajo {
   
     public double calcularTotal() {
         double total = 0.0;
-        
-        // Inicializar las colecciones si son null (puede ocurrir tras deserialización JSON)
+
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
         if (this.repuestosUtilizados == null) {
             this.repuestosUtilizados = new HashMap<>();
         }
-        
-        // Sumar el costo de los servicios
+
         for (Servicio s : listaServicios) {
             total += s.calcularCostoTotal();
         }
-        
-        // Sumar el costo de los repuestos utilizados
+
         for (Map.Entry<Repuesto, Integer> entry : repuestosUtilizados.entrySet()) {
             Repuesto repuesto = entry.getKey();
             Integer cantidad = entry.getValue();
@@ -292,7 +272,6 @@ public class OrdenDeTrabajo {
             throw new IllegalStateException("La orden debe estar pendiente para iniciar");
         }
 
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -338,7 +317,6 @@ public class OrdenDeTrabajo {
         StringBuilder factura = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        // Inicializar las colecciones si son null (puede ocurrir tras deserialización JSON)
         if (this.listaServicios == null) {
             this.listaServicios = new ArrayList<>();
         }
@@ -386,7 +364,6 @@ public class OrdenDeTrabajo {
 
         factura.append("-".repeat(70)).append("\n\n");
 
-        // Sección de repuestos utilizados
         factura.append("REPUESTOS UTILIZADOS:\n");
         factura.append("-".repeat(70)).append("\n");
 

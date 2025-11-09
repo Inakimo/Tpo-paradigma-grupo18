@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Cliente extends Persona {
     private int id;
-    // direccion, telefono y email están heredados de Persona
     private List<Vehiculo> vehiculos; 
 
 
@@ -39,12 +38,8 @@ public class Cliente extends Persona {
         return id;
     }
 
-    // getDireccion() y getTelefono() están heredados de Persona
-    // No necesitamos redefinirlos aquí
-
     
     public List<Vehiculo> getVehiculos() {
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.vehiculos == null) {
             this.vehiculos = new ArrayList<>();
         }
@@ -59,7 +54,6 @@ public class Cliente extends Persona {
     
    
     protected void agregarVehiculo(Vehiculo vehiculo) {
-        // Inicializar la lista si es null (puede ocurrir tras deserialización JSON)
         if (this.vehiculos == null) {
             this.vehiculos = new ArrayList<>();
         }

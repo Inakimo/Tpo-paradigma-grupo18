@@ -1,21 +1,10 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import modelo.*;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import modelo.Cliente;
-import modelo.Mecanico;
-import modelo.OrdenDeTrabajo;
-import modelo.Repuesto;
-import modelo.Vehiculo;
 
 public class ReportesPanel extends JPanel {
     private ClientesPanel clientesPanel;
@@ -44,11 +33,9 @@ public class ReportesPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel superior con botones
         JPanel panelBotones = crearPanelBotones();
         add(panelBotones, BorderLayout.NORTH);
 
-        // Panel central con área de texto
         JPanel panelTexto = crearPanelTexto();
         add(panelTexto, BorderLayout.CENTER);
     }

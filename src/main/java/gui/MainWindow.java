@@ -1,25 +1,12 @@
 package gui;
 
+import modelo.*;
+import persistencia.PersistenciaManager;
+
+import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import modelo.Cliente;
-import modelo.Mecanico;
-import modelo.OrdenDeTrabajo;
-import modelo.Repuesto;
-import modelo.Vehiculo;
-import persistencia.PersistenciaManager;
 
 public class MainWindow extends JFrame {
     private JTabbedPane tabbedPane;
@@ -34,8 +21,7 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         persistenciaManager = new PersistenciaManager();
-        
-        // Agregar shutdown hook para garantizar que se guarden los datos al cerrar
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Ejecutando shutdown hook - guardando datos...");
             try {
@@ -55,13 +41,13 @@ public class MainWindow extends JFrame {
         setSize(1200, 700);
         setLocationRelativeTo(null);
 
-        // Crear menú
+
         crearMenu();
 
-        // Crear el panel de pestañas
+
         tabbedPane = new JTabbedPane();
 
-        // Crear los paneles
+
         clientesPanel = new ClientesPanel();
         vehiculosPanel = new VehiculosPanel();
         mecanicosPanel = new MecanicosPanel();
@@ -69,12 +55,10 @@ public class MainWindow extends JFrame {
         ordenesPanel = new OrdenesPanel();
         reportesPanel = new ReportesPanel();
 
-        // Conectar paneles (para que puedan compartir datos)
         vehiculosPanel.setClientesPanel(clientesPanel);
         ordenesPanel.setPaneles(vehiculosPanel, mecanicosPanel, repuestosPanel);
         reportesPanel.setPaneles(clientesPanel, vehiculosPanel, mecanicosPanel, repuestosPanel, ordenesPanel);
 
-        // Agregar pestañas con iconos (opcional)
         tabbedPane.addTab("Clientes", clientesPanel);
         tabbedPane.addTab("Vehículos", vehiculosPanel);
         tabbedPane.addTab("Mecánicos", mecanicosPanel);
@@ -84,15 +68,13 @@ public class MainWindow extends JFrame {
 
         add(tabbedPane);
 
-        // Configurar apariencia
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        // Agregar WindowListener para guardar datos al cerrar
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -103,11 +85,10 @@ public class MainWindow extends JFrame {
     
     private void crearMenu() {
         JMenuBar menuBar = new JMenuBar();
-        
-        // Menú Archivo
+
         JMenu menuArchivo = new JMenu("Archivo");
         
-        // Opción Guardar
+
         JMenuItem itemGuardar = new JMenuItem("Guardar");
         itemGuardar.setAccelerator(KeyStroke.getKeyStroke("control S"));
         itemGuardar.addActionListener(e -> {
@@ -118,7 +99,7 @@ public class MainWindow extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
         });
         
-        // Opción Salir
+
         JMenuItem itemSalir = new JMenuItem("Salir");
         itemSalir.setAccelerator(KeyStroke.getKeyStroke("alt F4"));
         itemSalir.addActionListener(e -> cerrarAplicacion());
@@ -133,7 +114,6 @@ public class MainWindow extends JFrame {
     
     private void cargarDatosIniciales() {
         try {
-            // Cargar en orden: clientes, vehiculos, mecanicos, repuestos, ordenes
             List<Cliente> clientes = persistenciaManager.cargarClientes();
             clientesPanel.setClientes(clientes);
             
@@ -151,12 +131,11 @@ public class MainWindow extends JFrame {
             );
             ordenesPanel.setOrdenes(ordenes);
             
-            // Cargar contadores
+
             java.util.Map<String, Integer> contadores = persistenciaManager.cargarContadores();
             clientesPanel.setSiguienteId(contadores.getOrDefault("clienteIdCounter", 1));
             vehiculosPanel.setSiguienteId(contadores.getOrDefault("vehiculoIdCounter", 1));
             ordenesPanel.setSiguienteId(contadores.getOrDefault("ordenIdCounter", 1));
-            // Nota: MecanicosPanel y RepuestosPanel también necesitarán esto si se implementan contadores
             
             System.out.println("Datos cargados correctamente:");
             System.out.println("  - " + clientes.size() + " clientes");
@@ -168,7 +147,6 @@ public class MainWindow extends JFrame {
         } catch (Exception e) {
             System.err.println("Error al cargar datos: " + e.getMessage());
             e.printStackTrace();
-            // No mostramos diálogo de error si es la primera vez (archivos no existen)
         }
     }
     
@@ -189,7 +167,6 @@ public class MainWindow extends JFrame {
             dispose();
             System.exit(0);
         }
-        // Si es CANCEL_OPTION, no hacemos nada (la ventana permanece abierta)
     }
     
     private void guardarTodosDatos() {
@@ -216,10 +193,10 @@ public class MainWindow extends JFrame {
         persistenciaManager.guardarContadores(
             clientesPanel.getSiguienteId(),
             vehiculosPanel.getSiguienteId(),
-            0, // mecanicoIdCounter - por implementar
-            0, // repuestoIdCounter - por implementar
+            0,
+            0,
             ordenesPanel.getSiguienteId(),
-            0  // servicioIdCounter - por implementar
+            0
         );
     }
 

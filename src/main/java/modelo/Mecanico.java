@@ -3,7 +3,6 @@ package modelo;
 public class Mecanico extends Persona {
     private int idMecanico;
     private String especialidad;
-    // telefono está heredado de Persona
     private boolean disponible;
 
   
@@ -11,11 +10,11 @@ public class Mecanico extends Persona {
         super(nombre, email);
         this.idMecanico = idMecanico;
         this.especialidad = especialidad;
-        this.telefono = telefono;  // Usa el campo heredado
+        this.telefono = telefono;
         this.disponible = true; 
     }
 
-    //
+
     public Mecanico(int idMecanico, String nombre, String especialidad) {
         super(nombre, "");
         this.idMecanico = idMecanico;

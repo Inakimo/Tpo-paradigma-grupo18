@@ -1,27 +1,13 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
 import modelo.Cliente;
 import modelo.Vehiculo;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VehiculosPanel extends JPanel {
     private JTable tablaVehiculos;
@@ -51,15 +37,12 @@ public class VehiculosPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel superior con formulario
         JPanel panelFormulario = crearPanelFormulario();
         add(panelFormulario, BorderLayout.NORTH);
 
-        // Panel central con tabla
         JPanel panelTabla = crearPanelTabla();
         add(panelTabla, BorderLayout.CENTER);
 
-        // Panel inferior con botones
         JPanel panelBotones = crearPanelBotones();
         add(panelBotones, BorderLayout.SOUTH);
     }
@@ -206,7 +189,6 @@ public class VehiculosPanel extends JPanel {
             return;
         }
 
-        // Verificar que hay un propietario seleccionado
         if (cbClientes.getSelectedIndex() <= 0 || clientesPanel == null) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un propietario", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -297,8 +279,7 @@ public class VehiculosPanel extends JPanel {
     public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos.clear();
         this.vehiculos.addAll(vehiculos);
-        
-        // Actualizar el siguiente ID basado en el máximo ID existente
+
         int maxId = 0;
         for (Vehiculo v : vehiculos) {
             if (v.getIdVehiculo() > maxId) {

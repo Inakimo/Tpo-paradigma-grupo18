@@ -1,25 +1,12 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import modelo.Repuesto;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
-import modelo.Repuesto;
 
 public class RepuestosPanel extends JPanel {
     private JTable tablaRepuestos;
@@ -27,7 +14,6 @@ public class RepuestosPanel extends JPanel {
     private List<Repuesto> repuestos;
     private int siguienteId = 1;
 
-    // Componentes del formulario
     private JTextField txtCodigo;
     private JTextField txtNombre;
     private JTextField txtDescripcion;
@@ -43,15 +29,13 @@ public class RepuestosPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel superior con formulario
+
         JPanel panelFormulario = crearPanelFormulario();
         add(panelFormulario, BorderLayout.NORTH);
 
-        // Panel central con tabla
         JPanel panelTabla = crearPanelTabla();
         add(panelTabla, BorderLayout.CENTER);
 
-        // Panel inferior con botones
         JPanel panelBotones = crearPanelBotones();
         add(panelBotones, BorderLayout.SOUTH);
     }
@@ -251,10 +235,10 @@ public class RepuestosPanel extends JPanel {
             return;
         }
 
-        if (opcion == 0) { // Aumentar
+        if (opcion == 0) {
             repuesto.aumentarStock(cantidad);
             JOptionPane.showMessageDialog(this, "Stock aumentado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else { // Reducir
+        } else {
             if (repuesto.reducirStock(cantidad)) {
                 JOptionPane.showMessageDialog(this, "Stock reducido correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -263,7 +247,6 @@ public class RepuestosPanel extends JPanel {
             }
         }
 
-        // Actualizar tabla
         modeloTabla.setValueAt(repuesto.getStockDisponible(), filaSeleccionada, 5);
         String estado = repuesto.tieneBajoStock() ? "⚠ Bajo Stock" : "✓ Stock OK";
         modeloTabla.setValueAt(estado, filaSeleccionada, 6);

@@ -74,7 +74,7 @@ public class ServicioMantenimiento extends Servicio {
  
     public double calcularAhorro() {
         if (tipoMantenimiento.equalsIgnoreCase("Preventivo")) {
-            return this.costoBase * 0.10; // 10% de ahorro
+            return this.costoBase * 0.10;
         }
         return 0.0;
     }
